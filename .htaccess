@@ -1,13 +1,27 @@
 ErrorDocument 404 /404.html
 
-<Files .htaccess>
+<Files ".htaccess">
   Order Allow,Deny
   Deny from all
-</Files>
-
-<Files site.zip>
-  Order Allow,Deny
-  Deny from all
+  Require all denied
 </Files>
 
 Options All -Indexes
+
+AddEncoding gzip .gz
+
+RewriteEngine On
+
+RewriteCond %{HTTPS} !=on 
+RewriteRule ^/(.*) https://%{SERVER_NAME}/$1 [R=301,L]
+
+RewriteCond %{HTTP:Accept-encoding} gzip
+RewriteCond %{REQUEST_FILENAME}\.gz -s
+RewriteRule ^(.*)\.css $1\.css\.gz [QSA]
+
+RewriteCond %{HTTP:Accept-encoding} gzip
+RewriteCond %{REQUEST_FILENAME}\.gz -s
+RewriteRule ^(.*)\.js $1\.js\.gz [QSA]
+
+RewriteRule \.css\.gz$ - [T=text/css,E=no-gzip:1]
+RewriteRule \.js\.gz$ - [T=text/javascript,E=no-gzip:1]

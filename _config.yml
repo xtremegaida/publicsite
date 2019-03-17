@@ -1,6 +1,5 @@
 # Site settings
 title: XTremeGaida
-email: redacted@redacted.com
 description: >-
   Pending cool site description. Everything is awesome.
 baseurl: ""
@@ -10,7 +9,6 @@ github_username: xtremegaida
 
 # Build settings
 markdown: kramdown
-theme: minima
 plugins:
   - jekyll-feed
 
